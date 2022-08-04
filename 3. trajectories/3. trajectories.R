@@ -9,6 +9,7 @@ library(tibble)
 library(showtext)
 library(ggtext)
 library(rlang)
+library(geomtextpath)
 
 ###############################################################
 # data
@@ -71,7 +72,7 @@ plot.1 <-
              fill = "white", color = "tomato4") +
   annotate("segment", x = 0.7, xend = 1.6, y = 3, yend = 2.2,
            colour = "tomato4", size=1, alpha=0.7, arrow=arrow()) +
-  labs(subtitle = str_wrap("Following a brain injury there may be a drop in a young person's cognitive ability.
+  labs(subtitle = str_wrap("Following a brain injury there may be a drop in a young person's cognitive abilities.
                            For some, early sudden gains in the acute recovery stage will bring cognition back to
                            a near preinjury level.",
                            width = 42)) +
@@ -137,6 +138,6 @@ finished.plot <- plot.1 + plot.2 + plot.3 +
   xlab("Time") & ylab("Cognitive Ability & Function")
 
 
-ggsave("/Users/christophergaskell/OneDrive/neuro-psy-viz/3. trajectories/plot.png",
+ggsave("3. trajectories/plot.png",
        plot = finished.plot, width = 50, height =18, units = "cm")
 
