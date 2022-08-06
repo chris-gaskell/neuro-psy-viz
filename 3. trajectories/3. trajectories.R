@@ -139,5 +139,5 @@ finished.plot <- plot.1 + plot.2 + plot.3 +
 
 
 ggsave("3. trajectories/plot.png",
-       plot = finished.plot, width = 50, height =18, units = "cm")
+       plot = finished.plot, width = 50, height =23, units = "cm")
 
