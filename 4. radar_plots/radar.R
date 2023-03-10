@@ -65,92 +65,36 @@ p + facet_wrap(~patient, nrow = 3) +
 
 
 
-p <-
+#p <-
 data %>% filter(patient == 1) %>%
 ggplot() +
-  # Make custom panel grid
-  geom_hline(
-    aes(yintercept = y),
+  geom_hline(aes(yintercept = y),
     data.frame(y = c(80, 90, 110)),
-    color = "black"
-  ) +
-  # Add bars to represent the cumulative track lengths
-  # str_wrap(region, 5) wraps the text so each line has at most 5 characters
-  # (but it doesn't break long words!)
-  geom_col(
-    aes(
-      x = reorder(str_wrap(index, 5), composite),
-      y = composite,
-      fill = domain,
-    ),
-    position = "dodge2",
-    show.legend = TRUE,
-    alpha = 1
-  ) +
-
-  # Add dots to represent the mean gain
-  geom_point(
-    aes(
-      x = reorder(str_wrap(index, 5), composite),
-      y = composite,
-    ),
-    size = 3,
-    color = "gray12"
-  ) +
-
-  # Lollipop shaft for mean gain per region
-  geom_segment(
-    aes(
-      x = reorder(str_wrap(index, 5), composite),
-      y = 0,
-      xend = str_wrap(index, 5),
-      yend = 130
-    ),
-    linetype = "dashed",
-    color = "gray12"
-  ) +
+    color = "black") +
+  geom_segment(aes(x = reorder(str_wrap(index, 5), composite),
+                   y = composite, xend = str_wrap(index, 5), yend = 130),
+               linetype = "dashed", color = "gray12") +
   scale_fill_manual(values = c(wais_color, wms_color)) +
-  geomtextpath::coord_curvedpolar()
-
-p +
-  theme(
-    # Remove axis ticks and text
-    axis.title = element_blank(),
-    axis.ticks = element_blank(),
-    axis.text.y = element_blank(),
-    # Use gray text for the region names
-    axis.text.x = element_text(color = "gray12", size = 12),
-    # Move the legend to the bottom
-    legend.position = "bottom",
-    panel.grid = element_blank(),
-    panel.background = element_blank(),
-  ) +
-  annotate("rect", xmin = 9, xmax = 0, ymin = 90, ymax = 110,
-           alpha = .1) +
-  annotate("rect", xmin = 9, xmax = 0, ymin = 80, ymax = 90,
-           alpha = .05) +
-  annotate(
-    x = 0, y = 115,
-    label = "Above Average", geom = "text", color = "gray12",
-    #family = "Bell MT"
-  ) +
-  # Annotate custom scale inside plot
-  annotate(
-    x = 0, y = 100,
-    label = "Average", geom = "text", color = "gray12",
-    #family = "Bell MT"
-  ) +
-  annotate(
-    x = 0, y = 85,
-    label = "Low Average", geom = "text", color = "gray12",
-    #family = "Bell MT"
-  ) +
-  annotate(
-    x = 0, y = 75,
-    label = "Borderline", geom = "text", color = "gray12",
-    #family = "Bell MT"
-  )
-
+  theme(axis.title = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_text(color = "gray12", size = 10),
+        legend.position = "bottom",
+        panel.grid = element_blank(),
+        panel.background = element_blank()) +
+  annotate("rect", xmin = 9, xmax = 0, ymin = 90, ymax = 110, alpha = .1) +
+  annotate("rect", xmin = 9, xmax = 0, ymin = 80, ymax = 90, alpha = .1, fill = "grey12") +
+  annotate("rect", xmin = 9, xmax = 0, ymin = 0, ymax = 80, alpha = .3, fill = "grey12") +
+  annotate(x = 0, y = 115, label = "Above Average", geom = "text", color = "gray12", size = 3) +
+  annotate(x = 0, y = 100, label = "Average", geom = "text", color = "gray12", size = 3) +
+  annotate(x = 0, y = 85, label = "Low Average", geom = "text", color = "gray12", size = 3) +
+  annotate(x = 0, y = 75, label = "Borderline", geom = "text", color = "gray12", size = 3) +
+geom_col(aes(x = reorder(str_wrap(index, 5), composite),
+             y = composite,fill = domain),
+         position = "dodge2", show.legend = TRUE, alpha = 1) +
+  geomtextpath::coord_curvedpolar() +
+  geom_point(aes(x = reorder(str_wrap(index, 3), composite),
+                 y = composite,), size = 2, color = "gray12")
 
 #+
   #theme_bw()
